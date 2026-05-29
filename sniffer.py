@@ -1,8 +1,9 @@
 import socket
 import struct
 
-
-s=socket.socket(socket.AF_INET, socket.SOCK_RAW, socket.IPPROTO_TCP) 
+s = socket.socket(socket.AF_INET, socket.SOCK_RAW, socket.IPPROTO_IP)
+s.bind((socket.gethostbyname(socket.gethostname()), 0))  # ← bind to your IP first
+s.ioctl(socket.SIO_RCVALL, socket.RCVALL_ON)      
 
 def parse_packet(data):
     entete_ip=data[0:20]
